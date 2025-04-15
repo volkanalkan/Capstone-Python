@@ -20,12 +20,13 @@ def create_bb84_circuit(bits, bases):
         circuit_list.append(qc)
     return circuit_list
 
-# Run everything for now (will be updated with Bob's part later)
-if __name__ == "__main__":
-    n = 10  # Number of qubits
-    bits, bases = generate_bits_and_bases(n)
-    circuits = create_bb84_circuit(bits, bases)
+# Her zaman oluşturulacak (main bloğuna bağlı değil!)
+n = 10
+bits, bases = generate_bits_and_bases(n)
+circuits = create_bb84_circuit(bits, bases)
 
+# Sadece bu dosya doğrudan çalıştırıldığında ekrana yazdır
+if __name__ == "__main__":
     print("Alice's bits:", bits)
     print("Alice's bases:", bases)
     print()
@@ -34,4 +35,3 @@ if __name__ == "__main__":
         print(f"Circuit {i + 1}:")
         print(qc.draw())
         print()
-
