@@ -13,23 +13,19 @@ simulator = AerSimulator()
 for i in range(len(alice_circuits)):
     circuit = alice_circuits[i].copy()
 
-    # Ölçüm için klasik bit ekle
     creg = ClassicalRegister(1)
     circuit.add_register(creg)
 
-    # Eve kendi bazını seçip Hadamard uygular (X bazında ölçümse)
     if eve_bases[i] == 'X':
         circuit.h(0)
 
-    # Eve ölçüm yapar
     circuit.measure(0, creg[0])
     compiled = transpile(circuit, simulator)
     result = simulator.run(compiled, shots=1).result()
     counts = result.get_counts()
-    measured_bit = int(list(counts.keys())[0].replace(' ', ''))  # '0 0' gibi olursa boşluğu sil
+    measured_bit = int(list(counts.keys())[0].replace(' ', ''))
     eve_results.append(measured_bit)
 
-    # Eve sonucu aldıktan sonra yeni bir qubit hazırlayıp Bob’a yollar
     new_qc = QuantumCircuit(1, 1)
     if measured_bit == 1:
         new_qc.x(0)
@@ -40,3 +36,8 @@ for i in range(len(alice_circuits)):
 
 print("Eve's bases:", eve_bases)
 print("Eve's results:", eve_results)
+
+if __name__ == "__main__":
+    pass
+
+__all__ = ["intercepted_circuits"]

@@ -1,31 +1,27 @@
 from qiskit import QuantumCircuit
 import random
 
-# Random bits and bases
 def generate_bits_and_bases(n):
     bits = [random.randint(0, 1) for _ in range(n)]
     bases = [random.choice(['Z', 'X']) for _ in range(n)]
     return bits, bases
 
-# Quantum circuits based on Alice's bits and bases
 def create_bb84_circuit(bits, bases):
     circuit_list = []
     for bit, basis in zip(bits, bases):
         qc = QuantumCircuit(1, 1)
         if bit == 1:
-            qc.x(0)  # Apply X gate for bit 1
+            qc.x(0)  
         if basis == 'X':
-            qc.h(0)  # Apply Hadamard if basis is X
+            qc.h(0)  
         qc.barrier()
         circuit_list.append(qc)
     return circuit_list
 
-# Her zaman oluşturulacak (main bloğuna bağlı değil!)
 n = 10
 bits, bases = generate_bits_and_bases(n)
 circuits = create_bb84_circuit(bits, bases)
 
-# Sadece bu dosya doğrudan çalıştırıldığında ekrana yazdır
 if __name__ == "__main__":
     print("Alice's bits:", bits)
     print("Alice's bases:", bases)
